@@ -1,7 +1,3 @@
-This project is the implementation of the theoretical framework introduced in the following articles:
-
-
-This project is an attempt to understand the programming language that DNA genetic programs are written in. 
-This language is stochastic, and it makes use of the active particles. 
-Each particle has a random field associated with it, the language provides the ability to compose complex random fields by assembling the complex particles out of the simple ones.
-
+This project is the implementation of the theoretical framework introduced in the following articles: (TBD)
+This project is an attempt to understand the programming language that DNA genetic programs are written in. This language is stochastic, and it makes use of the active particles. Each particle has a random field associated with it, the language provides the ability to compose complex random fields by assembling the composite particles out of the simpler ones.
+The project includes a number of examples available as java-applets.  You can run them as scala applets from IDE or you can run them as java applets embedded into html page. You can find the example html pages in the root directory of the project. In order to run html-page-example you have to create manually the folder named “scala” and put “scala-library.jar” and “scala-swing.jar” into it (refer to html page source code for mode details).

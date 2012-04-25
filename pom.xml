@@ -4,12 +4,24 @@
   <groupId>org.particlez</groupId>
   <artifactId>particlez</artifactId>
   <version>0.1-SNAPSHOT</version>
- 
+  <developers>
+	<developer>
+		<id>bbiletskyy</id>
+		<name>Borys Biletskyy</name>
+		<email>borys.biletskyy@particlez.com</email>
+		<roles>
+			<role>Author</role>
+		</roles>
+	</developer>
+  </developers>
   <properties>
     <scala.version>2.9.1</scala.version>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  
+  
+  
   <repositories>
     <repository>
       <id>scala-tools.org</id>
