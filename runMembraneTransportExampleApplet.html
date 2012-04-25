@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+This example demonstrates how to build a particle that changes its behavior depending on the charges present around.
+				<br/>
+				<APPLET 
+  						CODE="net.particlez.gui.example.MembraneTransportExampleApplet"
+  						NAME="Simple applet"
+  						WIDTH="520" HEIGHT="210"
+  						ARCHIVE = "./target/particlez-0.1-SNAPSHOT.jar,./scala/scala-library.jar,./scala/scala-swing.jar">
+							Loading java applet failed. Check your browser settings.
+					<PARAM NAME="string"  VALUE="Hello, world ... it's me.   :)">
+				</APPLET>
+				<br/> 
+
+  Imagine given the following particles:<br/>
+  o - empty placeholder
+  f - floating particle, that jumps to the empty placeholder's position located within 1 distance unit away
+  e - charge with value -1 and radius 10
+  m - charge with value +4 and radius 0     
+  g - simple compound
+  q - block compound, that substitutes e, m, and f particles with o
+  u - particle that jumps out from compound q
+  d - particle that jumps into compound q
+  
+  We are to create a particle that begins to move when e charges appear in the context.
+  
+  Such particle would be: g(o, q(g(f, m, u, d, e), o)) 
+</body>
+</html>
