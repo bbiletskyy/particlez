@@ -13,7 +13,8 @@ import net.particlez.StaticParticle
 import net.particlez.Particle
 import net.particlez.Pos
 import scala.util.Random
-//TODO add addShortcut
+
+/** Holds the particles, shortcuts and icons  */
 class ParticleManager(val o: Particle[Pos]) {
   val namedItems = new HashMap[String, ParticleItem]()
   addBasic(o, "empty space placeholder", Color.white)

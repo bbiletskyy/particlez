@@ -2,6 +2,11 @@ package net.particlez
 
 import scala.util.Random
 
+/**
+ * A square shaped configuration where particle locations are described by integer vectors.
+ * The top left point of the configuration has coordinates (0,0,...,0) the bottom right point is represented by a limits vector provided.
+ * The configuration is filled by the empty particle provided as a parameter. This particle is also used to test whether the particle is active.
+ */
 class PosConfiguration(val o: Particle[Pos], val limits: Double*) extends Configuration[Pos] {
   val beta = 1.0
   val origin = Array.fill(limits.size)(0.0)
@@ -37,7 +42,7 @@ class PosConfiguration(val o: Particle[Pos], val limits: Double*) extends Config
   def fill(p: Particle[Pos]): Unit = content ++= locations().map((_ -> p)).toMap
 }
 
-/** Location represented by a vector of real numbers */
+/** A location in the configuration that is represented by a vector of real numbers */
 case class Pos(coordinates: Array[Double]) extends Distance[Pos] {
   val dim: Int = coordinates.size
   def distance(that: Pos): Double = {
@@ -52,26 +57,13 @@ case class Pos(coordinates: Array[Double]) extends Distance[Pos] {
   override def toString() = coordinates.mkString("Pos(", ";", ")")
 }
 
+/** A companion object that brings alternative constructor to case class (case classes can not have multiple constructors). */
 object Pos {
   def apply(c: Double*) = new Pos(c.toArray)
 }
 
-//case class Pos(coordinates: List[Double]) extends Distance[Pos] {
-//  def dim(): Int = coordinates.size
-//  def distance(that: Pos): Double = {
-//    if (this.dim != that.dim) throw new IllegalArgumentException("Wrong dimension")
-//    var res = 0.0
-//    for (i <- 0 until dim()) res += Math.pow(this.coordinates(i) - that.coordinates(i), 2)
-//    Math.sqrt(res)
-//  }
-//
-//  // TODO: Use these methods, hash code is needed since we use Pos as a key in a hash map, so equals is needed also
-//  //  override def equals(that: Any) = if (this.getClass() == that.getClass() && coordinates.toList == that.asInstanceOf[Pos].coordinates.toList) true else false
-//  //  override def hashCode() = coordinates.toList.hashCode()
-//  //  override def toString() = coordinates.mkString("Pos(", ";", ")")
-//}
-
-class PosIterator(val limits: Array[Int]) extends Iterator[Pos] {
+/** Iterates through all the integer vectors laying between (0,0,...,0) and the limits vector provided. Needed to traverse configuration locations. */
+private class PosIterator(val limits: Array[Int]) extends Iterator[Pos] {
   limits.foreach(e => if (e <= 0) throw new IllegalStateException("limits elements must be strictly positive"))
   def this(bounds: Int*) = this(bounds.toArray)
   var nxt = Array.fill(limits.size)(0)

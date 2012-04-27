@@ -39,7 +39,6 @@ class DownParticleTest {
       context = context ++ p.interact(self, context)
     }
 
-    //assertEquals(ccd(cd(cdd(o, d), o), o), context(self))
     //interaction is stochastic, so there is no way of making sure that it actually happened
     assertTrue(ccd(cd(cdd(o, d), o), o) == context(self) || ccd(o, cdd(o, d), cd(o)) == context(self))
   }
