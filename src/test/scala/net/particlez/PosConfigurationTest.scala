@@ -17,3 +17,48 @@ class PosConfigurationTest {
   }
 
 }
+
+class PosIteratorTest {
+
+  @Test
+  def testNext() {
+    val iter = new PosIterator(1, 1, 1)
+    assertTrue(iter.hasNext())
+    assertEquals(Pos(0, 0, 0), iter.next())
+    assertFalse(iter.hasNext())
+  }
+
+  @Test
+  def testNextAmount2By2() {
+    val iter = new PosIterator(2, 2)
+    var i = 0
+    while (iter.hasNext()) {
+      iter.next()
+      i = i + 1
+    }
+    assertEquals(4, i)
+  }
+
+  @Test
+  def testNextAmount3By2By5() {
+    val iter = new PosIterator(3, 2, 5)
+    var i = 0
+    while (iter.hasNext()) {
+      iter.next()
+      i = i + 1
+    }
+    assertEquals(30, i)
+  }
+
+  @Test
+  def testHasNext() {
+    assertTrue(new PosIterator(1, 1, 1).hasNext())
+    try {
+      new PosIterator(1, 1, 0)
+      fail("Exception is expected, since one element of the provided limits is 0")
+    } catch {
+      case e: IllegalStateException => //test passed
+      case _ => fail("Unexpected exception caught")
+    }
+  }
+}

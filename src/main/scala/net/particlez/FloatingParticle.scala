@@ -18,6 +18,7 @@ class FloatingParticle[L <: Distance[L]](n: String, r: Double, e: Particle[L]) e
     } else Map()
   }
 
+  //remove this method
   override def equals(that: Any) = that match {
     case other: FloatingParticle[L] => this.name == other.name && this.radius() == other.radius() && this.empty() == other.empty()
     case _ => false
