@@ -38,20 +38,38 @@ class PosConfiguration(val o: Particle[Pos], val limits: Double*) extends Config
 }
 
 /** Location represented by a vector of real numbers */
-case class Pos(coordinates: List[Double]) extends Distance[Pos] {
-  def dim(): Int = coordinates.size
+case class Pos(coordinates: Array[Double]) extends Distance[Pos] {
+  val dim: Int = coordinates.size
   def distance(that: Pos): Double = {
     if (this.dim != that.dim) throw new IllegalArgumentException("Wrong dimension")
     var res = 0.0
-    for (i <- 0 until dim()) res += Math.pow(this.coordinates(i) - that.coordinates(i), 2)
+    for (i <- 0 until dim) res += Math.pow(this.coordinates(i) - that.coordinates(i), 2)
     Math.sqrt(res)
   }
 
-  // TODO: Use these methods, hash code is needed since we use Pos as a key in a hash map, so equals is needed also
-  //  override def equals(that: Any) = if (this.getClass() == that.getClass() && coordinates.toList == that.asInstanceOf[Pos].coordinates.toList) true else false
-  //  override def hashCode() = coordinates.toList.hashCode()
-  //  override def toString() = coordinates.mkString("Pos(", ";", ")")
+  override def equals(that: Any) = this.getClass() == that.getClass() && coordinates.toList == that.asInstanceOf[Pos].coordinates.toList
+  override def hashCode() = coordinates.toList.hashCode()
+  override def toString() = coordinates.mkString("Pos(", ";", ")")
 }
+
+object Pos {
+  def apply(c: Double*) = new Pos(c.toArray)
+}
+
+//case class Pos(coordinates: List[Double]) extends Distance[Pos] {
+//  def dim(): Int = coordinates.size
+//  def distance(that: Pos): Double = {
+//    if (this.dim != that.dim) throw new IllegalArgumentException("Wrong dimension")
+//    var res = 0.0
+//    for (i <- 0 until dim()) res += Math.pow(this.coordinates(i) - that.coordinates(i), 2)
+//    Math.sqrt(res)
+//  }
+//
+//  // TODO: Use these methods, hash code is needed since we use Pos as a key in a hash map, so equals is needed also
+//  //  override def equals(that: Any) = if (this.getClass() == that.getClass() && coordinates.toList == that.asInstanceOf[Pos].coordinates.toList) true else false
+//  //  override def hashCode() = coordinates.toList.hashCode()
+//  //  override def toString() = coordinates.mkString("Pos(", ";", ")")
+//}
 
 class PosIterator(val limits: Array[Int]) extends Iterator[Pos] {
   limits.foreach(e => if (e <= 0) throw new IllegalStateException("limits elements must be strictly positive"))
@@ -61,7 +79,7 @@ class PosIterator(val limits: Array[Int]) extends Iterator[Pos] {
 
   def next(): Pos = {
     if (!hasNext()) throw new RuntimeException("Iterator has no more elements");
-    val res = Pos(nxt.map(_.toDouble).toList)
+    val res = Pos(nxt.map(_.toDouble).toArray)
     inc(0)
     res
   }
@@ -80,6 +98,4 @@ class PosIterator(val limits: Array[Int]) extends Iterator[Pos] {
 
 }
 
-object Pos {
-  def apply(c: Double*) = new Pos(c.toList)
-}
+

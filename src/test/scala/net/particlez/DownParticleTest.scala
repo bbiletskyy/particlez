@@ -59,7 +59,7 @@ class DownParticleTest {
       context = context ++ p.interact(self, context)
     }
     //2 transformations are possible, one followed by another one
-    assertTrue(ccd(cd(cdd(o, d), o), o, cd(o)) == context(self) || ccd(cd(cd(cdd(o, d), o), o), o) == context(self))
+    assertTrue(ccd(cd(cdd(o, d), o), o, cd(o)) == context(self) || ccd(cd(cd(cdd(o, d), o), o), o) == context(self) || ccd(o, cd(o), cdd(o, d), cd(o)) == context(self))
   }
 
   @Test
